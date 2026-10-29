@@ -836,14 +836,18 @@
                                 <!-- Score Inputs -->
                                 <div class="round-scores flex h-8 items-center gap-1">
                                     <div class="round-score-box flex h-8 w-10 items-center">
-                                        <input type="number" inputmode="numeric" min="0" step="1" value="${round.won}"
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" value="${round.won}"
+                                            onfocus="this.select()"
+                                            onclick="this.select()"
                                             onchange="updateRound('${match.id}', '${round.id}', 'won', this.value, this)"
                                             ${match.ended ? 'disabled' : ''}
                                             class="h-8 w-full text-center border border-green-300 bg-green-50 text-green-700 rounded text-sm focus:outline-none focus:ring-1 focus:ring-green-500">
                                     </div>
                                     <span class="text-gray-300">-</span>
                                     <div class="round-score-box flex h-8 w-10 items-center">
-                                        <input type="number" inputmode="numeric" min="0" step="1" value="${round.lost}"
+                                        <input type="text" inputmode="numeric" pattern="[0-9]*" value="${round.lost}"
+                                            onfocus="this.select()"
+                                            onclick="this.select()"
                                             onchange="updateRound('${match.id}', '${round.id}', 'lost', this.value, this)"
                                             ${match.ended ? 'disabled' : ''}
                                             class="h-8 w-full text-center border border-red-300 bg-red-50 text-red-600 rounded text-sm focus:outline-none focus:ring-1 focus:ring-red-500">
