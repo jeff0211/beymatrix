@@ -230,22 +230,32 @@
             .match-header {
                 flex-wrap: wrap;
                 gap: 0.5rem;
+                align-items: center;
             }
 
             .match-opponent {
                 flex: 1 1 100%;
                 margin-right: 0;
+                align-self: center;
             }
 
             .match-number {
                 margin-right: auto;
+                align-self: center;
             }
 
             .match-end-button {
+                align-self: center;
                 min-height: 40px;
                 margin-right: 0;
                 padding: 0.5rem 0.75rem;
                 font-size: 0.875rem;
+            }
+
+            .match-header > button:last-child {
+                align-self: center;
+                min-height: 40px;
+                padding: 0.5rem;
             }
 
             .round-row {
