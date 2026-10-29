@@ -195,6 +195,15 @@
                 gap: 0.75rem;
             }
 
+            .brand {
+                gap: 0.5rem;
+            }
+
+            .header-inner .brand-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
             .header-actions button {
                 min-height: 44px;
             }
@@ -366,7 +375,10 @@
     <!-- Header -->
     <header class="bg-indigo-600 text-white p-4 shadow-md sticky top-0 z-10">
         <div class="header-inner max-w-2xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">Beymatrix</h1>
+            <div class="brand flex items-center gap-3">
+                <img class="brand-icon h-10 w-10 rounded-full object-cover" src="./icons/icon-192.png" alt="">
+                <h1 class="text-xl font-bold">Beymatrix</h1>
+            </div>
             <div class="header-actions flex items-center gap-2">
                 <button id="back-to-setup-button" onclick="backToSetup()" class="hidden h-9 items-center justify-center rounded bg-teal-600 px-3 text-sm font-semibold text-white transition hover:bg-teal-500" title="Start a new team">
                     Back
