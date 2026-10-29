@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beymatrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #080b18; }
+
+        body.dark-theme {
+            color: #e2e8f0;
+            background:
+                radial-gradient(ellipse at 8% 0%, rgba(20, 184, 166, 0.16), transparent 38%),
+                radial-gradient(ellipse at 58% 12%, rgba(139, 92, 246, 0.14), transparent 36%),
+                radial-gradient(ellipse at 100% 34%, rgba(251, 113, 133, 0.12), transparent 38%),
+                #080b18;
+        }
+
+        body.dark-theme header {
+            background: linear-gradient(110deg, #0f766e 0%, #6d28d9 55%, #e8798f 100%) !important;
+            border-bottom: 1px solid rgba(251, 182, 206, 0.35);
+        }
+
+        body.dark-theme main .bg-white,
+        body.dark-theme #setup-inputs > div {
+            background-color: #111827 !important;
+            border-color: #263449 !important;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+        }
+
+        body.dark-theme .bg-gray-50 {
+            background-color: #172033 !important;
+        }
+
+        body.dark-theme .bg-gray-100 {
+            background-color: #202b40 !important;
+        }
+
+        body.dark-theme .border-gray-100,
+        body.dark-theme .border-gray-200,
+        body.dark-theme .border-gray-300 {
+            border-color: #334155 !important;
+        }
+
+        body.dark-theme .text-gray-800,
+        body.dark-theme .text-gray-700 {
+            color: #e2e8f0 !important;
+        }
+
+        body.dark-theme .text-gray-500,
+        body.dark-theme .text-gray-400 {
+            color: #9aaac0 !important;
+        }
+
+        body.dark-theme input,
+        body.dark-theme select {
+            color: #e2e8f0;
+            color-scheme: dark;
+        }
+
+        body.dark-theme input.bg-gray-50,
+        body.dark-theme select.bg-white {
+            background-color: #0c1424 !important;
+            border-color: #3b4b65 !important;
+        }
+
+        body.dark-theme input::placeholder {
+            color: #7c8ba1;
+        }
+
+        body.dark-theme select option {
+            background-color: #111827;
+            color: #e2e8f0;
+        }
+
+        body.dark-theme .bg-yellow-50 {
+            background-color: rgba(13, 148, 136, 0.16) !important;
+            border-color: #14b8a6 !important;
+            color: #99f6e4 !important;
+        }
+
+        body.dark-theme .bg-indigo-600 {
+            background-color: #4f46e5 !important;
+        }
+
+        body.dark-theme .hover\:bg-indigo-700:hover {
+            background-color: #5b21b6 !important;
+        }
+
+        body.dark-theme .bg-indigo-500 {
+            background-color: #7c3aed !important;
+        }
+
+        body.dark-theme .hover\:bg-indigo-400:hover {
+            background-color: #8b5cf6 !important;
+        }
+
+        body.dark-theme .border-indigo-300 {
+            border-color: #8b5cf6 !important;
+        }
+
+        body.dark-theme .text-indigo-600,
+        body.dark-theme .text-indigo-500 {
+            color: #c4b5fd !important;
+        }
+
+        body.dark-theme .bg-indigo-50 {
+            background-color: rgba(109, 40, 217, 0.2) !important;
+        }
+
+        body.dark-theme .hover\:bg-indigo-50:hover,
+        body.dark-theme .hover\:bg-indigo-100:hover {
+            background-color: rgba(20, 184, 166, 0.2) !important;
+        }
+
+        body.dark-theme .text-green-600,
+        body.dark-theme .text-green-700 {
+            color: #5eead4 !important;
+        }
+
+        body.dark-theme .text-red-500,
+        body.dark-theme .text-red-600 {
+            color: #f9a8d4 !important;
+        }
+
+        body.dark-theme .bg-green-50 {
+            background-color: rgba(13, 148, 136, 0.16) !important;
+        }
+
+        body.dark-theme .border-green-300 {
+            border-color: #2dd4bf !important;
+        }
+
+        body.dark-theme .bg-red-50 {
+            background-color: rgba(190, 24, 93, 0.18) !important;
+        }
+
+        body.dark-theme .border-red-300 {
+            border-color: #f472b6 !important;
+        }
+
+        body.dark-theme .border-green-300,
+        body.dark-theme .border-red-300 {
+            border-width: 1px;
+        }
+
+        body.dark-theme .text-gray-300 {
+            color: #64748b !important;
+        }
+
+        body.dark-theme .bg-red-500 {
+            background-color: #db2777 !important;
+        }
+
+        body.dark-theme .hover\:bg-red-400:hover {
+            background-color: #ec4899 !important;
+        }
+
+        body.dark-theme input:focus,
+        body.dark-theme select:focus {
+            border-color: #a78bfa !important;
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.35) !important;
+        }
+
+        body.dark-theme button:focus-visible {
+            outline: 2px solid #f9a8d4;
+            outline-offset: 2px;
+        }
+
+        #print-log {
+            display: none;
+        }
+
+        @media print {
+            body,
+            body * {
+                color: #000 !important;
+                background: #fff !important;
+                border-color: #000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
+
+            body > :not(#print-log) {
+                display: none !important;
+            }
+
+            #print-log {
+                display: block !important;
+                position: static;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            #print-log pre {
+                margin: 0;
+                white-space: pre-wrap;
+                overflow-wrap: anywhere;
+                font: 10pt/1.45 Consolas, "Courier New", monospace;
+            }
+        }
+        
+        /* Hide number input arrows */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="number"] { -moz-appearance: textfield; }
+    </style>
+</head>
+<body class="dark-theme text-gray-800 pb-24">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white p-4 shadow-md sticky top-0 z-10">
+        <div class="max-w-2xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">Beymatrix</h1>
+            <div class="flex items-center gap-2">
+                <button id="back-to-setup-button" onclick="backToSetup()" class="hidden h-9 items-center justify-center rounded bg-teal-600 px-3 text-sm font-semibold text-white transition hover:bg-teal-500" title="Start a new team">
+                    Back
+                </button>
+                <button onclick="printMatchLog()" class="flex h-9 w-9 items-center justify-center rounded bg-indigo-500 p-0 transition hover:bg-indigo-400" title="Print or save match log as PDF">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-12-4h12v8H6z"></path></svg>
+                </button>
+                <button id="page-reset-button" onclick="resetCurrentPage()" class="flex h-9 w-9 items-center justify-center rounded bg-red-500 p-0 transition hover:bg-red-400" title="Clear all combos">
+                    <svg class="h-7 w-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M17.65 6.35A8 8 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto p-4 mt-2">
+        
+        <!-- Setup Phase: Hidden when team is locked -->
+        <div id="setup-section" class="space-y-4">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded text-sm text-yellow-800">
+                Enter Your 3 Beyblade Combos.
+            </div>
+            
+            <div id="setup-inputs" class="space-y-4">
+                <!-- Injected via JS -->
+            </div>
+            
+            <button onclick="lockTeam()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg shadow hover:bg-indigo-700 transition">
+                Locked & Loaded
+            </button>
+        </div>
+
+        <!-- Tracking Phase: Hidden when team is NOT locked -->
+        <div id="tracking-section" class="hidden space-y-6">
+            
+            <!-- Summary Dashboard -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+                <h2 class="text-center font-extrabold text-gray-200 uppercase tracking-wider text-2xl mb-5">Beyblade Combo Summary</h2>
+                <div id="summary-cards" class="grid grid-cols-3 gap-3 text-center">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+            <!-- Matches Container -->
+            <div id="matches-container" class="space-y-4">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Add Match Button -->
+            <button onclick="addMatch()" class="w-full border-2 border-dashed border-indigo-300 text-indigo-600 font-bold py-4 rounded-xl hover:bg-indigo-50 transition flex items-center justify-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Add Match
+            </button>
+
+        </div>
+    </main>
+
+    <section id="print-log" aria-label="Printable Markdown match log">
+        <pre id="print-log-content"></pre>
+    </section>
+
+    <script>
+        // --- State Management ---
+        const DEFAULT_STATE = {
+            isLocked: false,
+            beyblades: [
+                { id: 'b1', name: '', combo: '' },
+                { id: 'b2', name: '', combo: '' },
+                { id: 'b3', name: '', combo: '' }
+            ],
+            matches: [] 
+            // match: { id, opponent, rounds: [{ id, beybladeId, won, lost }] }
+        };
+
+        function createDefaultState() {
+            return JSON.parse(JSON.stringify(DEFAULT_STATE));
+        }
+
+        function isValidState(value) {
+            if (!value || typeof value !== 'object' ||
+                typeof value.isLocked !== 'boolean' ||
+                !Array.isArray(value.beyblades) || value.beyblades.length !== 3 ||
+                !Array.isArray(value.matches)) {
+                return false;
+            }
+
+            const ids = new Set();
+            const addValidId = id => {
+                if (typeof id !== 'string' || !/^[A-Za-z0-9_-]+$/.test(id) || ids.has(id)) {
+                    return false;
+                }
+                ids.add(id);
+                return true;
+            };
+
+            if (!value.beyblades.every(b =>
+                b && addValidId(b.id) &&
+                typeof b.name === 'string' &&
+                typeof b.combo === 'string'
+            )) {
+                return false;
+            }
+
+            const beybladeIds = new Set(value.beyblades.map(b => b.id));
+            return value.matches.every(match =>
+                match && addValidId(match.id) &&
+                typeof match.opponent === 'string' &&
+                (match.ended === undefined || typeof match.ended === 'boolean') &&
+                Array.isArray(match.rounds) &&
+                match.rounds.every(round =>
+                    round && addValidId(round.id) &&
+                    beybladeIds.has(round.beybladeId) &&
+                    Number.isSafeInteger(round.won) && round.won >= 0 &&
+                    Number.isSafeInteger(round.lost) && round.lost >= 0
+                )
+            );
+        }
+
+        function loadState() {
+            const storedState = localStorage.getItem('beyTrackerState');
+            if (storedState === null) return createDefaultState();
+
+            try {
+                const parsedState = JSON.parse(storedState);
+                if (isValidState(parsedState)) return parsedState;
+            } catch (error) {
+                console.error('Unable to parse saved Beyblade tracker data.', error);
+            }
+
+            console.error('Saved Beyblade tracker data is invalid; starting with a fresh state.');
+            return createDefaultState();
+        }
+
+        let state = loadState();
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, character => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            })[character]);
+        }
+
+        function createId(prefix) {
+            if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+                return prefix + crypto.randomUUID();
+            }
+            return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2);
+        }
+
+        function saveState(shouldRender = true) {
+            localStorage.setItem('beyTrackerState', JSON.stringify(state));
+            if (shouldRender) {
+                render();
+            }
+        }
+
+        // --- Core Functions ---
+        function updateSetupInput(id, field, value) {
+            const bb = state.beyblades.find(b => b.id === id);
+            if (bb) bb[field] = value;
+            saveState(false); // Prevent re-rendering to keep input focus
+        }
+
+        function lockTeam() {
+            // Basic validation
+            const isValid = state.beyblades.every(b => b.name.trim() !== '');
+            if (!isValid) {
+                alert("Please enter a name for all 3 Beyblades.");
+                return;
+            }
+            state.isLocked = true;
+            saveState();
+        }
+
+        function resetCurrentPage() {
+            if (state.isLocked) {
+                if (!confirm("Clear all matches and rounds? Your Beyblade combos will be kept.")) {
+                    return;
+                }
+                state.matches = [];
+            } else {
+                if (!confirm("Clear all 3 Beyblade names and combos?")) {
+                    return;
+                }
+                state.beyblades.forEach(beyblade => {
+                    beyblade.name = '';
+                    beyblade.combo = '';
+                });
+            }
+            saveState();
+        }
+
+        function updateResetButton() {
+            const resetButton = document.getElementById('page-reset-button');
+            resetButton.title = state.isLocked ? 'Clear all matches' : 'Clear all combos';
+            resetButton.setAttribute('aria-label', resetButton.title);
+        }
+
+        function backToSetup() {
+            if (!confirm("Going back will erase your current team and match log. Do you want to continue?")) {
+                return;
+            }
+            state = createDefaultState();
+            saveState();
+        }
+
+        function addMatch() {
+            const newMatch = {
+                id: createId('m_'),
+                opponent: '',
+                ended: false,
+                rounds: []
+            };
+            state.matches.push(newMatch);
+            saveState();
+            
+            // Auto add first round
+            addRound(newMatch.id);
+        }
+
+        function removeMatch(matchId) {
+            if(confirm("Remove this match?")) {
+                state.matches = state.matches.filter(m => m.id !== matchId);
+                saveState();
+            }
+        }
+
+        function updateMatchOpponent(matchId, value) {
+            const match = state.matches.find(m => m.id === matchId);
+            if (match) match.opponent = value;
+            saveState(false); // Prevent re-rendering to keep input focus
+        }
+
+        function toggleMatchEnded(matchId) {
+            const match = state.matches.find(m => m.id === matchId);
+            if (!match) return;
+            match.ended = !match.ended;
+            saveState();
+        }
+
+        function addRound(matchId) {
+            const match = state.matches.find(m => m.id === matchId);
+            if (match && !match.ended) {
+                match.rounds.push({
+                    id: createId('r_'),
+                    beybladeId: state.beyblades[0].id, // default to first
+                    won: 0,
+                    lost: 0
+                });
+                saveState();
+            }
+        }
+
+        function removeRound(matchId, roundId) {
+            const match = state.matches.find(m => m.id === matchId);
+            if (match && !match.ended) {
+                match.rounds = match.rounds.filter(r => r.id !== roundId);
+                saveState();
+            }
+        }
+
+        function updateRound(matchId, roundId, field, value, input) {
+            const match = state.matches.find(m => m.id === matchId);
+            if (match && !match.ended) {
+                const round = match.rounds.find(r => r.id === roundId);
+                if (round) {
+                    if (field === 'beybladeId') {
+                        round.beybladeId = value;
+                    } else if (field === 'won' || field === 'lost') {
+                        const score = Number(value);
+                        if (!Number.isSafeInteger(score) || score < 0) {
+                            input.value = round[field];
+                            return;
+                        }
+                        round[field] = score;
+                    } else {
+                        return;
+                    }
+                    // Save state but only re-render the summary to prevent input focus loss
+                    localStorage.setItem('beyTrackerState', JSON.stringify(state));
+                    renderSummary();
+                }
+            }
+        }
+
+        // --- Calculate Totals ---
+        function getTotals() {
+            const totals = {};
+            state.beyblades.forEach(b => {
+                totals[b.id] = { won: 0, lost: 0 };
+            });
+
+            state.matches.forEach(match => {
+                match.rounds.forEach(round => {
+                    if (totals[round.beybladeId]) {
+                        totals[round.beybladeId].won += round.won;
+                        totals[round.beybladeId].lost += round.lost;
+                    }
+                });
+            });
+            return totals;
+        }
+
+        function escapeMarkdown(value) {
+            return String(value)
+                .replace(/\\/g, '\\\\')
+                .replace(/\|/g, '\\|')
+                .replace(/[\r\n]+/g, ' ')
+                .replace(/([`*_{}\[\]()#+!>~])/g, '\\$1');
+        }
+
+        function createMatchLogMarkdown() {
+            const totals = getTotals();
+            const lines = [
+                '# Beymatrix Match Log',
+                '',
+                `Exported: ${new Date().toLocaleString()}`,
+                '',
+                '## Team Summary',
+                '',
+                '| # | Beyblade | Combo | Wins | Losses | Net |',
+                '| --- | --- | --- | ---: | ---: | ---: |'
+            ];
+
+            state.beyblades.forEach((beyblade, index) => {
+                const score = totals[beyblade.id];
+                lines.push(
+                    `| ${index + 1} | ${escapeMarkdown(beyblade.name || 'Unnamed')} | ` +
+                    `${escapeMarkdown(beyblade.combo || '-')} | ${score.won} | ${score.lost} | ` +
+                    `${score.won - score.lost} |`
+                );
+            });
+
+            lines.push('', '## Match Log', '');
+            if (state.matches.length === 0) {
+                lines.push('No matches recorded yet.');
+            } else {
+                state.matches.forEach((match, matchIndex) => {
+                    lines.push(
+                        `### Match ${matchIndex + 1}: ${escapeMarkdown(match.opponent || 'Unnamed opponent')}`,
+                        '',
+                        '| Round | Beyblade | Combo | Wins | Losses |',
+                        '| ---: | --- | --- | ---: | ---: |'
+                    );
+
+                    if (match.rounds.length === 0) {
+                        lines.push('| - | No rounds recorded | - | - | - |');
+                    } else {
+                        match.rounds.forEach((round, roundIndex) => {
+                            const beyblade = state.beyblades.find(b => b.id === round.beybladeId);
+                            lines.push(
+                                `| ${roundIndex + 1} | ${escapeMarkdown(beyblade ? beyblade.name : 'Unknown')} | ` +
+                                `${escapeMarkdown(beyblade ? beyblade.combo || '-' : '-')} | ${round.won} | ${round.lost} |`
+                            );
+                        });
+                    }
+
+                    lines.push('');
+                });
+            }
+
+            return lines.join('\n');
+        }
+
+        function printMatchLog() {
+            document.getElementById('print-log-content').textContent = createMatchLogMarkdown();
+            window.print();
+        }
+
+        // --- Rendering ---
+        function render() {
+            const setupSection = document.getElementById('setup-section');
+            const trackingSection = document.getElementById('tracking-section');
+            const backButton = document.getElementById('back-to-setup-button');
+            updateResetButton();
+
+            if (!state.isLocked) {
+                setupSection.classList.remove('hidden');
+                trackingSection.classList.add('hidden');
+                backButton.classList.add('hidden');
+                renderSetup();
+            } else {
+                setupSection.classList.add('hidden');
+                trackingSection.classList.remove('hidden');
+                backButton.classList.remove('hidden');
+                renderSummary();
+                renderMatches();
+            }
+        }
+
+        function renderSetup() {
+            const container = document.getElementById('setup-inputs');
+            container.innerHTML = state.beyblades.map((bb, index) => `
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-700 mb-2">Beyblade ${index + 1}</h3>
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Name (e.g. Wizard Rod)" value="${escapeHtml(bb.name)}" 
+                            oninput="updateSetupInput('${bb.id}', 'name', this.value)"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" placeholder="Combo (e.g. 1-60H)" value="${escapeHtml(bb.combo)}"
+                            oninput="updateSetupInput('${bb.id}', 'combo', this.value)"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSummary() {
+            const container = document.getElementById('summary-cards');
+            const totals = getTotals();
+
+            container.innerHTML = state.beyblades.map(bb => {
+                const won = totals[bb.id].won;
+                const lost = totals[bb.id].lost;
+                const net = won - lost;
+                const netColor = net > 0 ? 'text-green-600' : (net < 0 ? 'text-red-500' : 'text-gray-500');
+
+                return `
+                <div class="flex flex-col h-full bg-gray-50 rounded-lg p-3 border border-gray-100">
+                    <div class="flex-grow">
+                        <div class="font-bold text-base leading-tight break-words text-gray-800">${escapeHtml(bb.name)}</div>
+                        <div class="text-xs text-gray-500 mt-1 break-words">${escapeHtml(bb.combo || '-')}</div>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-gray-200 grid grid-cols-2 gap-1 text-sm">
+                        <div class="text-green-600 text-lg font-bold text-center">W: ${won}</div>
+                        <div class="text-red-500 text-lg font-bold text-center">L: ${lost}</div>
+                        <div class="col-span-2 text-center mt-1 font-bold text-sm ${netColor}">Net: ${net > 0 ? '+' : ''}${net}</div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function renderMatches() {
+            const container = document.getElementById('matches-container');
+            
+            if (state.matches.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-400 py-8 italic">No matches recorded yet.</div>`;
+                return;
+            }
+
+            container.innerHTML = state.matches.map((match, matchIndex) => `
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-4">
+                    
+                    <!-- Match Header -->
+                    <div class="bg-gray-50 border-b border-gray-200 p-3 flex justify-between items-center">
+                        <div class="flex-grow mr-2">
+                            <input type="text" placeholder="Opponent Name" value="${escapeHtml(match.opponent)}"
+                                oninput="updateMatchOpponent('${match.id}', this.value)"
+                                class="w-full bg-transparent font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-b-2 focus:border-indigo-500 py-1">
+                        </div>
+                        <span class="text-xs font-semibold text-gray-400 whitespace-nowrap mr-3">Match ${matchIndex + 1}</span>
+                        <button onclick="toggleMatchEnded('${match.id}')"
+                            aria-pressed="${match.ended ? 'true' : 'false'}"
+                            class="mr-2 whitespace-nowrap rounded px-2 py-1 text-xs font-semibold transition ${match.ended ? 'bg-pink-900 text-pink-200 hover:bg-pink-800' : 'bg-teal-900 text-teal-200 hover:bg-teal-800'}">
+                            ${match.ended ? 'Edit Match' : 'Match Ended'}
+                        </button>
+                        <button onclick="removeMatch('${match.id}')" class="text-gray-400 hover:text-red-500" title="Delete Match">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Rounds -->
+                    <div class="p-3 space-y-3">
+                        ${match.rounds.map((round, roundIndex) => `
+                            <div class="flex items-center gap-2 bg-gray-50 p-2 rounded-lg border border-gray-100">
+                                <div class="text-xs font-bold text-gray-400 w-6 text-center">R${roundIndex + 1}</div>
+                                
+                                <!-- Beyblade Selector -->
+                                <div class="flex-grow">
+                                    <select onchange="updateRound('${match.id}', '${round.id}', 'beybladeId', this.value)"
+                                        ${match.ended ? 'disabled' : ''}
+                                        class="w-full h-8 bg-white border border-gray-300 rounded px-2 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                                        ${state.beyblades.map(bb => `
+                                            <option value="${bb.id}" ${round.beybladeId === bb.id ? 'selected' : ''}>
+                                                ${escapeHtml(bb.name)} ${bb.combo ? '(' + escapeHtml(bb.combo) + ')' : ''}
+                                            </option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+
+                                <!-- Score Inputs -->
+                                <div class="flex h-8 items-center gap-1">
+                                    <div class="flex h-8 w-10 items-center">
+                                        <input type="number" inputmode="numeric" min="0" step="1" value="${round.won}"
+                                            onchange="updateRound('${match.id}', '${round.id}', 'won', this.value, this)"
+                                            ${match.ended ? 'disabled' : ''}
+                                            class="h-8 w-full text-center border border-green-300 bg-green-50 text-green-700 rounded text-sm focus:outline-none focus:ring-1 focus:ring-green-500">
+                                    </div>
+                                    <span class="text-gray-300">-</span>
+                                    <div class="flex h-8 w-10 items-center">
+                                        <input type="number" inputmode="numeric" min="0" step="1" value="${round.lost}"
+                                            onchange="updateRound('${match.id}', '${round.id}', 'lost', this.value, this)"
+                                            ${match.ended ? 'disabled' : ''}
+                                            class="h-8 w-full text-center border border-red-300 bg-red-50 text-red-600 rounded text-sm focus:outline-none focus:ring-1 focus:ring-red-500">
+                                    </div>
+                                </div>
+                                
+                                <button onclick="removeRound('${match.id}', '${round.id}')" ${match.ended ? 'disabled' : ''} class="text-gray-300 hover:text-red-500 p-1 disabled:cursor-not-allowed disabled:opacity-40">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                </button>
+                            </div>
+                        `).join('')}
+                        
+                        <button onclick="addRound('${match.id}')" ${match.ended ? 'disabled' : ''} class="w-full text-xs font-semibold text-indigo-500 bg-indigo-50 py-2 rounded-lg hover:bg-indigo-100 transition disabled:cursor-not-allowed disabled:opacity-40">
+                            ${match.ended ? 'Match Ended' : '+ Add Round'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize App
+        render();
+
+    </script>
+</body>
+</html>
